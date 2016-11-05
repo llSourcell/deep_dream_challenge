@@ -136,6 +136,10 @@ def main():
     ########################################################################################################
     ##############################################################################
     
+    #CHALLENGE - Write a function that outputs a deep dream video
+    #def render_deepdreamvideo():
+        
+        
     def render_deepdream(t_obj, img0=img_noise,
                          iter_n=10, step=1.5, octave_n=4, octave_scale=1.4):
         t_score = tf.reduce_mean(t_obj) # defining the optimization objective
@@ -163,6 +167,8 @@ def main():
             #this will usually be like 3 or 4 octaves
             #Step 5 output deep dream image via matplotlib
             showarray(img/255.0)
+            
+         
   
    	#Step 3 - Pick a layer to enhance our image
     layer = 'mixed4d_3x3_bottleneck_pre_relu'
