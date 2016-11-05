@@ -3,7 +3,7 @@ from functools import partial
 import PIL.Image
 import tensorflow as tf
 import matplotlib.pyplot as plt
-import urllib2
+import urllib.request
 import os
 import zipfile
 
@@ -15,7 +15,7 @@ def main():
     local_zip_file = os.path.join(data_dir, model_name)
     if not os.path.exists(local_zip_file):
         # Download
-        model_url = urllib2.urlopen(url)
+        model_url = urllib.request.urlopen(url)
         with open(local_zip_file, 'wb') as output:
             output.write(model_url.read())
         # Extract
@@ -45,7 +45,7 @@ def main():
     print('Total number of feature channels:', sum(feature_nums))
   
  #####HELPER FUNCTIONS. I didn't go over these in the video for times sake. They are mostly just formatting functions. Scroll 
- to the bottom #########################################################################################################
+ #to the bottom #########################################################################################################
  ########################################################################################################################
  ############################################################
  
@@ -132,6 +132,10 @@ def main():
                 grad[y:y+sz,x:x+sz] = g
         return np.roll(np.roll(grad, -sx, 1), -sy, 0)    
 
+    #BACK TO CODE IN THE VIDEO###########################################################################################
+    ########################################################################################################
+    ##############################################################################
+    
     def render_deepdream(t_obj, img0=img_noise,
                          iter_n=10, step=1.5, octave_n=4, octave_scale=1.4):
         t_score = tf.reduce_mean(t_obj) # defining the optimization objective
@@ -155,7 +159,8 @@ def main():
             for _ in range(iter_n):
                 g = calc_grad_tiled(img, t_grad)
                 img += g*(step / (np.abs(g).mean()+1e-7))
-                
+            
+            #this will usually be like 3 or 4 octaves
             #Step 5 output deep dream image via matplotlib
             showarray(img/255.0)
   
